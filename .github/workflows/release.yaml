@@ -1,0 +1,46 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+      - next
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    permissions: # 权限设置
+      contents: write
+      packages: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # 获取完整的提交历史(semantic-release 需要)
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+      - name: Run Semantic Release
+        run: pnpm release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }} # 需要在仓库主页的 settings 中配置
+          # NPM_TOKEN: ${{ secrets.NPM_TOKEN }} # 如果需要发布到 npm 仓库, 也需要配置这个
