@@ -3,6 +3,7 @@
     <div>{{ count }}</div>
     <button @click="increment">increment</button>
     <button @click="decrement">decrement</button>
+    <button @click="double">double</button>
   </div>
 </template>
 
@@ -15,5 +16,8 @@ function increment() {
 }
 function decrement() {
   count.value--;
+}
+function double() {
+  count.value *= 2;
 }
 </script>
