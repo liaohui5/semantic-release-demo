@@ -2,10 +2,13 @@
  * @type {import('semantic-release').GlobalConfig}
  */
 export default {
+  // 在哪些 git 分支上进行 release,
+  // 注意配合 Github Actions workflow 使用
   branches: ["main", "next"],
-  plugins: [
-    // 内置的 4 个插件, 不需要手动安装: commit-analyzer release-notes-generator npm github
 
+  // 插件配置: 默认有内置的 4 个插件, 不需要手动安装
+  // commit-analyzer release-notes-generator npm github
+  plugins: [
     // 1.分析 commit 信息(请注意git提交规范 https://semver.org)
     // https://github.com/semantic-release/commit-analyzer
     "@semantic-release/commit-analyzer",
@@ -15,11 +18,12 @@ export default {
     "@semantic-release/release-notes-generator",
 
     // 3.自动生成或更新 CHANGELOG.md 文件, 记录每个版本的变更内容
+    // 注意这个插件不是必须的, 它需要手动安装
     // https://github.com/semantic-release/changelog
     ["@semantic-release/changelog", { changelogFile: "./CHANGELOG.md" }],
 
     // 4.自动更新 package.json 中的 version 字段, 并支持发布到 npm 仓库
-    // https://github.com/semantic-release/changelog
+    // https://github.com/semantic-release/npm
     [
       "@semantic-release/npm",
       {
@@ -28,12 +32,13 @@ export default {
       },
     ],
 
-    // 5.将版本更新相关的文件(如 package.json 和 CHANGELOG.md), 提交到 Git 仓库
-    // https://github.com/semantic-release/changelog
+    // 5.自动生成 git commit 并提交(assets: 指定哪些文件需要更新&提交)
+    // 注意这个插件不是必须的, 它需要手动安装
+    // https://github.com/semantic-release/git
     [
       "@semantic-release/git",
       {
-        assets: ["package.json", "CHANGELOG.md"],
+        // assets: ["package.json", "CHANGELOG.md"],
         message: "chore(release): ${nextRelease.version} [skip ci]",
       },
     ],

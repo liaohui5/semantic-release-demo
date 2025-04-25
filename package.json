@@ -7,8 +7,7 @@
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
     "preview": "vite preview",
-    "release": "semantic-release",
-    "release:no-ci": "semantic-release --debug -dry-run --no-ci"
+    "release": "semantic-release"
   },
   "dependencies": {
     "vue": "^3.5.13"
