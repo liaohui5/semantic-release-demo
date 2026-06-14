@@ -19,7 +19,7 @@
     "@vue/tsconfig": "^0.7.0",
     "semantic-release": "^24.2.3",
     "typescript": "~5.7.2",
-    "vite": "^6.3.1",
+    "vite": "^6.4.2",
     "vue-tsc": "^2.2.8"
   }
 }
